@@ -39,5 +39,11 @@ app.post('/api/comments', function(req, res) {
     }
     var comments = JSON.parse(data);
     var newComment = {
-      id: Date.now(),
-
+      id: Date.now(), author: req.body.author, text: req.body.text,
+    }; comments.push(newComment); fs.writeFile(commentsFile, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comments);
+    } ); } ); } );
